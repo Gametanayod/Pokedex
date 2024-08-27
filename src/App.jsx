@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [pokemon, setPokemon] = useState([]);
+  const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon/");
+  const [nextUrl, setNextUrl] = useState();
+  const [prevUrl, setPrevUrl] = useState();
+  const [isloading, setIsloading] = useState(false);
+
+  const getPokemonData = async () => {
+    try {
+      const result = await axios.get(url);
+      setIsloading(false);
+      setNextUrl(result.data.next);
+      setPrevUrl(result.data.previous);
+      setPokemon(result.data.results);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const getNextPokemonData = () => {
+    setUrl(nextUrl);
+  };
+
+  const getPrevPokemonData = () => {
+    setUrl(prevUrl);
+  };
+
+  useEffect(() => {
+    setIsloading(true);
+    getPokemonData();
+  }, [url]);
+
+  console.log(pokemon);
+  console.log(nextUrl);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      {isloading ? (
+        <h1>loading...</h1>
+      ) : (
+        <>
+          <div>
+            {pokemon.map((items, index) => {
+              return <div key={index}>{items.name}</div>;
+            })}
+          </div>
+          {prevUrl && <button onClick={getPrevPokemonData}>prev</button>}
+          {nextUrl && <button onClick={getNextPokemonData}>next</button>}
+        </>
+      )}
+    </div>
+  );
 }
-
-export default App
