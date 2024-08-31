@@ -1,5 +1,6 @@
 import axios from "axios";
 import Searchbar from "./component/searchbar";
+import SearchPage from "./component/seachpage";
 import { useEffect, useState } from "react";
 
 export default function App() {
@@ -9,6 +10,7 @@ export default function App() {
   const [offset, setOffset] = useState(0);
   const [isloading, setIsloading] = useState(false);
   const [error, setError] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const getPokemon = async () => {
     try {
@@ -26,7 +28,6 @@ export default function App() {
       setPokemon(result.data);
       setEachPokemonData(eachPokemonData);
     } catch (error) {
-      console.log(error);
       setIsloading(false);
       setError(true);
     }
@@ -34,10 +35,12 @@ export default function App() {
 
   const getNextPokemonData = () => {
     setOffset(offset + 100);
+    setPageNumber(pageNumber + 1);
   };
 
   const getPrevPokemonData = () => {
     setOffset(offset - 100);
+    setPageNumber(pageNumber - 1);
   };
 
   useEffect(() => {
@@ -45,6 +48,7 @@ export default function App() {
   }, [offset]);
 
   console.log(eachPokemonData);
+  console.log(pokemon);
 
   return (
     <div>
@@ -53,15 +57,78 @@ export default function App() {
         setIsloading={setIsloading}
         setInput={setInput}
         input={input}
-        setPokemon={setPokemon}
         offset={offset}
+        setError={setError}
+      />
+      <SearchPage
+        setEachPokemonData={setEachPokemonData}
+        setIsloading={setIsloading}
+        setInput={setInput}
+        setError={setError}
       />
       {isloading ? (
-        <h1>loading...</h1>
+        <h1>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <g stroke="currentColor">
+              <circle
+                cx="12"
+                cy="12"
+                r="9.5"
+                fill="none"
+                stroke-linecap="round"
+                stroke-width="3"
+              >
+                <animate
+                  attributeName="stroke-dasharray"
+                  calcMode="spline"
+                  dur="1.5s"
+                  keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+                  keyTimes="0;0.475;0.95;1"
+                  repeatCount="indefinite"
+                  values="0 150;42 150;42 150;42 150"
+                />
+                <animate
+                  attributeName="stroke-dashoffset"
+                  calcMode="spline"
+                  dur="1.5s"
+                  keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+                  keyTimes="0;0.475;0.95;1"
+                  repeatCount="indefinite"
+                  values="0;-16;-59;-59"
+                />
+              </circle>
+              <animateTransform
+                attributeName="transform"
+                dur="2s"
+                repeatCount="indefinite"
+                type="rotate"
+                values="0 12 12;360 12 12"
+              />
+            </g>
+          </svg>
+          loading...
+        </h1>
       ) : error ? (
-        <div>You did not catch the pokemon</div>
+        <h1>You did not catch the pokemon</h1>
       ) : (
         <>
+          {eachPokemonData.length === 1 ? null : (
+            <div>
+              {eachPokemonData.length > 0 &&
+              eachPokemonData[0].id === 1 ? null : (
+                <button onClick={getPrevPokemonData}>prev</button>
+              )}
+              <span>{pageNumber}</span>
+              {eachPokemonData.length < 100 ? null : (
+                <button onClick={getNextPokemonData}>next</button>
+              )}
+            </div>
+          )}
           <div className=" flex flex-wrap items-center justify-center">
             {eachPokemonData.map((card, index) => {
               return (
@@ -71,11 +138,7 @@ export default function App() {
                 >
                   <img
                     className="w-48 h-48"
-                    src={
-                      card.sprites.other.dream_world.front_default
-                        ? card.sprites.other.dream_world.front_default
-                        : card.sprites.other["official-artwork"].front_default
-                    }
+                    src={card.sprites.other["official-artwork"].front_default}
                     alt="pokemon"
                   />
                   <p>{card.name}</p>
@@ -83,16 +146,6 @@ export default function App() {
               );
             })}
           </div>
-          {eachPokemonData.length === 1 ? null : (
-            <div>
-              {eachPokemonData[0].id === 1 ? null : (
-                <button onClick={getPrevPokemonData}>prev</button>
-              )}
-              {eachPokemonData.length < 100 ? null : (
-                <button onClick={getNextPokemonData}>next</button>
-              )}
-            </div>
-          )}
         </>
       )}
     </div>

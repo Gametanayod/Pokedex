@@ -7,7 +7,7 @@ export default function Searchbar({
   setInput,
   input,
   offset,
-  setPokemon,
+  setError,
 }) {
   const getInputPokemon = (e) => {
     setInput(e.target.value);
@@ -26,8 +26,8 @@ export default function Searchbar({
             return detail.data;
           })
         );
+        setError(false);
         setIsloading(false);
-        setPokemon(result1);
         setEachPokemonData(eachPokemonData);
       } catch (error) {
         console.log(error);
@@ -36,12 +36,16 @@ export default function Searchbar({
       try {
         setIsloading(true);
         const result2 = await axios.get(
-          `https://pokeapi.co/api/v2/pokemon/${input}`
+          `https://pokeapi.co/api/v2/pokemon/${input.toLowerCase()}`
         );
+        setError(false);
         setIsloading(false);
         setEachPokemonData([result2.data]);
+        setInput("");
       } catch (error) {
-        console.log(error);
+        setError(true);
+        setIsloading(false);
+        setInput("");
       }
     }
   };
@@ -52,6 +56,7 @@ export default function Searchbar({
         onChange={(e) => getInputPokemon(e)}
         className="bg-zinc-100"
         type="text"
+        value={input}
       />
       <button onClick={getIndividualPokemonData}>search</button>
     </div>
