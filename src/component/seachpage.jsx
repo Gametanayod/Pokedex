@@ -5,6 +5,8 @@ export default function SearchPage({
   setEachPokemonData,
   setIsloading,
   setError,
+  setOffset,
+  setPageNumber,
 }) {
   const [page, setPage] = useState();
 
@@ -27,7 +29,9 @@ export default function SearchPage({
       setError(false);
       setIsloading(false);
       setEachPokemonData(eachPokemonData);
+      setOffset((page - 1) * 100);
       setPage("");
+      setPageNumber(Number(page));
     } catch (error) {
       setError(true);
       setIsloading(false);
