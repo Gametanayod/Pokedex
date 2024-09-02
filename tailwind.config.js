@@ -4,7 +4,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ["Pixelify Sans"],
+        Nunito: ["Nunito", "sans-serif"],
+      },
+      backgroundImage: {
+        pokeball: "url('/src/assets/thumb-1920-677583.png')",
       },
     },
   },

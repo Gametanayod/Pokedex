@@ -72,7 +72,6 @@ export default function App() {
   }, [offset]);
 
   console.log(eachPokemonData);
-  console.log(buttonPopup);
 
   return (
     <div className="relative">
@@ -171,7 +170,7 @@ export default function App() {
                 <div key={index}>
                   <button
                     onClick={() => pokemonPopup(card.id)}
-                    className="flex flex-col items-center justify-center font-body w-80 h-80 m-5 bg-white drop-shadow-2xl"
+                    className="flex flex-col font-Nunito text-2xl font-bold rounded-3xl bg-slate-200 items-center justify-evenly  w-80 h-80 m-5 bg-white drop-shadow-2xl"
                   >
                     <img
                       className="w-48 h-48"
