@@ -9,6 +9,7 @@ import miraidonLowpower from "./assets/1008Miraidon_Dream_5.png";
 import miraidonDrive from "./assets/1008Miraidon_Dream_4.png";
 import miraidonAquatic from "./assets/1008Miraidon_Dream_6.png";
 import miraidonGlide from "./assets/1008Miraidon_Dream_3.png";
+import pokedexLogo from "./assets/Pokédex_logo.png";
 import Popup from "./component/popup";
 import { useEffect, useState } from "react";
 
@@ -20,6 +21,7 @@ export default function App() {
   const [isloading, setIsloading] = useState(false);
   const [error, setError] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
+  const [page, setPage] = useState();
   const [buttonPopup, setButtonPopup] = useState({
     show: false,
     pokemonId: null,
@@ -57,8 +59,8 @@ export default function App() {
     setPageNumber(pageNumber - 1);
   };
 
-  const checkPage = (array) => {
-    if (array.length === 0) {
+  const checkPage = (array, page) => {
+    if (array.length === 0 || page < 1) {
       return true;
     }
   };
@@ -71,40 +73,43 @@ export default function App() {
     getPokemon();
   }, [offset]);
 
-  console.log(eachPokemonData);
+  console.log(pokemon);
+  console.log(typeof page);
 
   return (
-    <div className="relative">
+    <div className="flex flex-col items-center  bg-main min-h-screen font-Nunito">
       {buttonPopup.show && (
         <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
       )}
-
-      <Searchbar
-        setEachPokemonData={setEachPokemonData}
-        setIsloading={setIsloading}
-        setInput={setInput}
-        input={input}
-        offset={offset}
-        setError={setError}
-      />
-      <SearchPage
-        setEachPokemonData={setEachPokemonData}
-        setIsloading={setIsloading}
-        setInput={setInput}
-        setError={setError}
-        setOffset={setOffset}
-        setPageNumber={setPageNumber}
-      />
+      <div className="w-full h-40 flex items-center justify-center gap-5 bg-red-600 drop-shadow-2xl rounded-b-full">
+        <img className="h-28" src={pokedexLogo} alt="Logo" />
+        <Searchbar
+          setEachPokemonData={setEachPokemonData}
+          setIsloading={setIsloading}
+          setInput={setInput}
+          input={input}
+          offset={offset}
+          setError={setError}
+        />
+        {/* <SearchPage
+          setEachPokemonData={setEachPokemonData}
+          setIsloading={setIsloading}
+          setInput={setInput}
+          setError={setError}
+          setOffset={setOffset}
+          setPageNumber={setPageNumber}
+          page={page}
+          setPage={setPage}
+        /> */}
+      </div>
       {isloading ? (
-        <h1>
-          {/* Loading Spinner */}
+        <div className="flex w-96 h-24 items-center justify-center bg-gray-300">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1em"
             height="1em"
             viewBox="0 0 24 24"
           >
-            {/* SVG Loading Animation */}
             <g stroke="currentColor">
               <circle
                 cx="12"
@@ -142,36 +147,56 @@ export default function App() {
               />
             </g>
           </svg>
-          loading...
-        </h1>
+        </div>
       ) : error ? (
         <h1>You did not catch the pokemon</h1>
-      ) : checkPage(eachPokemonData) ? (
+      ) : checkPage(eachPokemonData, page) ? (
         <h1>not found page</h1>
       ) : (
-        <>
-          {/* Pagination Controls */}
+        <div className="flex flex-col justify-center items-center">
           {eachPokemonData.length === 1 ? null : (
-            <div>
-              {eachPokemonData.length > 0 &&
-              eachPokemonData[0].id === 1 ? null : (
-                <button onClick={getPrevPokemonData}>prev</button>
-              )}
-              <span>{pageNumber}</span>
-              {eachPokemonData.length < 100 ? null : (
-                <button onClick={getNextPokemonData}>next</button>
-              )}
+            <div className="w-96 h-44 flex flex-col items-center justify-center  gap-5 ">
+              <div className="flex bg-slate-300 w-56 rounded-lg gap-5 text-4xl items-center justify-center drop-shadow-2xl">
+                <p>Page</p>
+                <p>
+                  {pageNumber}/{Math.ceil(pokemon.count / 100)}
+                </p>
+              </div>
+              <div className="w-44 h-10 flex items-center gap-5 justify-center text-2xl">
+                {eachPokemonData.length > 0 &&
+                eachPokemonData[0].id === 1 ? null : (
+                  <button
+                    className="w-20 bg-red-400 font-bold rounded-lg hover:bg-red-300 drop-shadow-2xl"
+                    onClick={getPrevPokemonData}
+                  >
+                    Prev
+                  </button>
+                )}
+
+                {eachPokemonData.length < 100 ? null : (
+                  <button
+                    className="w-20 bg-blue-400 font-bold rounded-lg hover:bg-blue-300 drop-shadow-2xl"
+                    onClick={getNextPokemonData}
+                  >
+                    Next
+                  </button>
+                )}
+              </div>
             </div>
           )}
-          {/* Pokemon Cards */}
+
           <div className="flex flex-wrap items-center justify-center">
             {eachPokemonData.map((card, index) => {
+              const formattedId = card.id.toString().padStart(4, "0");
               return (
                 <div key={index}>
                   <button
                     onClick={() => pokemonPopup(card.id)}
-                    className="flex flex-col font-Nunito text-2xl font-bold rounded-3xl bg-slate-200 items-center justify-evenly  w-80 h-80 m-5 bg-white drop-shadow-2xl"
+                    className="flex flex-col  text-2xl font-medium items-center justify-around  w-80 h-80 m-5 btn shadow-[0_9px_0_rgb(0,0,0)] hover:shadow-[0_4px_0px_rgb(0,0,0)] text-black bg-white ease-out hover:translate-y-1 transition-all rounded drop-shadow-2xl"
                   >
+                    <div className="flex w-60 justify-end ">
+                      <p>#{formattedId}</p>
+                    </div>
                     <img
                       className="w-48 h-48"
                       src={
@@ -210,7 +235,7 @@ export default function App() {
               );
             })}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

@@ -8,6 +8,7 @@ export default {
       },
       backgroundImage: {
         pokeball: "url('/src/assets/thumb-1920-677583.png')",
+        main: "url('/src/assets/seamless-pattern-pokemon-go-pokeball-background-vector-23236924.jpg')",
       },
     },
   },

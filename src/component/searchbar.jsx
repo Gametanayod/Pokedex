@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useState } from "react";
+import searchIcon from "../assets/609652-200.png";
+import pokeball from "../assets/1169608.png";
 
 export default function Searchbar({
   setEachPokemonData,
@@ -51,14 +52,21 @@ export default function Searchbar({
   };
 
   return (
-    <div>
+    <div className="flex items-center justify-around w-96 bg-white rounded-full focus-within:outline focus-within:outline-4 focus-within:outline-blue-600">
+      <img className="h-9" src={pokeball} alt="pokeballIcon" />
       <input
         onChange={(e) => getInputPokemon(e)}
-        className="bg-zinc-100"
+        placeholder="Search Pokemon by name or ID"
+        className="w-60 h-11  bg-white outline-none"
         type="text"
         value={input}
       />
-      <button onClick={getIndividualPokemonData}>search</button>
+      <img
+        onClick={getIndividualPokemonData}
+        className="h-10 cursor-pointer"
+        src={searchIcon}
+        alt="searchPokemon"
+      />
     </div>
   );
 }

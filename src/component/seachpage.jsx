@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import searchPage from "../assets/64759.png";
 
 export default function SearchPage({
   setEachPokemonData,
@@ -7,11 +7,11 @@ export default function SearchPage({
   setError,
   setOffset,
   setPageNumber,
+  setPage,
+  page,
 }) {
-  const [page, setPage] = useState();
-
   const getInputPage = (e) => {
-    setPage(e.target.value);
+    setPage(Number(e.target.value));
   };
 
   const pokemonDataAtPage = async () => {
@@ -30,8 +30,8 @@ export default function SearchPage({
       setIsloading(false);
       setEachPokemonData(eachPokemonData);
       setOffset((page - 1) * 100);
-      setPage("");
       setPageNumber(Number(page));
+      setPage("");
     } catch (error) {
       setError(true);
       setIsloading(false);
@@ -40,14 +40,22 @@ export default function SearchPage({
   };
 
   return (
-    <div>
+    <div className="flex items-center justify-center w-36 bg-white rounded-full">
       <input
+        max={14}
+        min={1}
         onChange={(e) => getInputPage(e)}
-        className="bg-zinc-300"
-        type="text"
+        placeholder="Page"
+        className="w-16 h-10  bg-white outline-none"
+        type="number"
         value={page}
       />
-      <button onClick={pokemonDataAtPage}>go to Page</button>
+      <img
+        onClick={pokemonDataAtPage}
+        className="h-7 cursor-pointer ml-3"
+        src={searchPage}
+        alt="searchPage"
+      />
     </div>
   );
 }
