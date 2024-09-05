@@ -15,11 +15,11 @@ export default function Popup({ trigger, settrigger, card }) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="flex   bg-pokeball w-[1100px] h-[600px] font-Nunito text-xl rounded-2xl shadow-lg relative"
+        className="flex bg-pokeball w-[1100px] h-[600px] font-Nunito text-xl rounded-2xl shadow-lg relative"
       >
         <div className="flex items-center">
           <img
-            className="w-[475px] h-[475px] mr-8"
+            className="w-[475px] h-[475px] mx-8"
             src={
               card.sprites.other["official-artwork"].front_default
                 ? card.sprites.other["official-artwork"].front_default
@@ -84,7 +84,7 @@ export default function Popup({ trigger, settrigger, card }) {
                         : type.type.name === "dragon"
                         ? "bg-indigo-100 p-2 rounded-lg hover:bg-indigo-300"
                         : type.type.name === "rock"
-                        ? "bg-stone-100 p-2 rounded-lg hover:bg-stone-300"
+                        ? "bg-stone-200 p-2 rounded-lg hover:bg-stone-400"
                         : type.type.name === "ghost"
                         ? "bg-purple-100 p-2 rounded-lg hover:bg-purple-300"
                         : "bg-white"

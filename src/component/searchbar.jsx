@@ -27,9 +27,11 @@ export default function Searchbar({
             return detail.data;
           })
         );
-        setError(false);
-        setIsloading(false);
-        setEachPokemonData(eachPokemonData);
+        setTimeout(() => {
+          setError(false);
+          setIsloading(false);
+          setEachPokemonData(eachPokemonData);
+        }, 1000);
       } catch (error) {
         console.log(error);
       }
@@ -39,14 +41,18 @@ export default function Searchbar({
         const result2 = await axios.get(
           `https://pokeapi.co/api/v2/pokemon/${input.toLowerCase()}`
         );
-        setError(false);
-        setIsloading(false);
-        setEachPokemonData([result2.data]);
-        setInput("");
+        setTimeout(() => {
+          setError(false);
+          setIsloading(false);
+          setEachPokemonData([result2.data]);
+          setInput("");
+        }, 1000);
       } catch (error) {
-        setError(true);
-        setIsloading(false);
-        setInput("");
+        setTimeout(() => {
+          setError(true);
+          setIsloading(false);
+          setInput("");
+        }, 1000);
       }
     }
   };
