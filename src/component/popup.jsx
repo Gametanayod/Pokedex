@@ -15,11 +15,11 @@ export default function Popup({ trigger, settrigger, card }) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="flex bg-pokeball w-[1100px] h-[600px] font-Nunito text-xl rounded-2xl shadow-lg relative"
+        className="flex bg-pokeball w-[880px] h-[480px] font-Nunito text-xl rounded-2xl shadow-lg relative"
       >
         <div className="flex items-center">
           <img
-            className="w-[475px] h-[475px] mx-8"
+            className="w-[380px] h-[380px] mx-8"
             src={
               card.sprites.other["official-artwork"].front_default
                 ? card.sprites.other["official-artwork"].front_default
@@ -43,50 +43,50 @@ export default function Popup({ trigger, settrigger, card }) {
             }
             alt="pokemon"
           />
-          <div className="flex flex-col w-[500px] h-[475px] justify-around items-center bg-white shadow-2xl rounded-3xl">
-            <p className="text-4xl font-bold">{card.name}</p>
-            <div className="flex w-44 items-center gap-10 justify-center ">
-              <p className="text-3xl text-red-800">type</p>
+          <div className="flex flex-col w-[400px] h-[380px] justify-around items-center bg-white shadow-2xl rounded-3xl">
+            <p className="text-3xl font-bold">{card.name}</p>
+            <div className="flex w-44 items-center gap-7 justify-center ">
+              <p className="text-2xl text-red-800">type</p>
               {card.types.map((type, index) => {
                 return (
                   <div
                     className={`${
                       type.type.name === "water"
-                        ? "bg-blue-100 p-2 rounded-lg hover:bg-blue-300"
+                        ? "bg-blue-100 p-1 rounded-lg hover:bg-blue-300 text-base"
                         : type.type.name === "grass"
-                        ? "bg-green-100 p-2 rounded-lg hover:bg-green-300"
+                        ? "bg-green-100 p-1 rounded-lg hover:bg-green-300 text-base"
                         : type.type.name === "poison"
-                        ? "bg-violet-100 p-2 rounded-lg hover:bg-violet-300"
+                        ? "bg-violet-100 p-1 rounded-lg hover:bg-violet-300 text-base"
                         : type.type.name === "fire"
-                        ? "bg-red-100 p-2 rounded-lg hover:bg-red-300"
+                        ? "bg-red-100 p-1 rounded-lg hover:bg-red-300 text-base"
                         : type.type.name === "flying"
-                        ? "bg-sky-100 p-2 rounded-lg hover:bg-sky-300"
+                        ? "bg-sky-100 p-1 rounded-lg hover:bg-sky-300 text-base"
                         : type.type.name === "bug"
-                        ? "bg-lime-100 p-2 rounded-lg hover:bg-lime-300"
+                        ? "bg-lime-100 p-1 rounded-lg hover:bg-lime-300 text-base"
                         : type.type.name === "electric"
-                        ? "bg-yellow-100 p-2 rounded-lg hover:bg-yellow-300"
+                        ? "bg-yellow-100 p-1 rounded-lg hover:bg-yellow-300 text-base"
                         : type.type.name === "ground"
-                        ? "bg-amber-100 p-2 rounded-lg hover:bg-amber-300"
+                        ? "bg-amber-100 p-1 rounded-lg hover:bg-amber-300 text-base"
                         : type.type.name === "fairy"
-                        ? "bg-pink-100 p-2 rounded-lg hover:bg-pink-300"
+                        ? "bg-pink-100 p-1 rounded-lg hover:bg-pink-300 text-base"
                         : type.type.name === "normal"
-                        ? "bg-neutral-100 p-2 rounded-lg hover:bg-neutral-300"
+                        ? "bg-neutral-100 p-1 rounded-lg hover:bg-neutral-300 text-base"
                         : type.type.name === "psychic"
-                        ? "bg-rose-100 p-2 rounded-lg hover:bg-rose-300"
+                        ? "bg-rose-100 p-1 rounded-lg hover:bg-rose-300 text-base "
                         : type.type.name === "steel"
-                        ? "bg-zinc-100 p-2 rounded-lg hover:bg-zinc-300"
+                        ? "bg-zinc-100 p-1 rounded-lg hover:bg-zinc-300 text-base"
                         : type.type.name === "fighting"
-                        ? "bg-orange-100 p-2 rounded-lg hover:bg-orange-300"
+                        ? "bg-orange-100 p-1 rounded-lg hover:bg-orange-300 text-base"
                         : type.type.name === "dark"
-                        ? "bg-gray-100 p-2 rounded-lg hover:bg-gray-300"
+                        ? "bg-gray-100 p-1 rounded-lg hover:bg-gray-300 text-base"
                         : type.type.name === "ice"
-                        ? "bg-cyan-100 p-2 rounded-lg hover:bg-cyan-300"
+                        ? "bg-cyan-100 p-1 rounded-lg hover:bg-cyan-300 text-base"
                         : type.type.name === "dragon"
-                        ? "bg-indigo-100 p-2 rounded-lg hover:bg-indigo-300"
+                        ? "bg-indigo-100 p-1 rounded-lg hover:bg-indigo-300 text-base"
                         : type.type.name === "rock"
-                        ? "bg-stone-200 p-2 rounded-lg hover:bg-stone-400"
+                        ? "bg-stone-200 p-1 rounded-lg hover:bg-stone-400 text-base"
                         : type.type.name === "ghost"
-                        ? "bg-purple-100 p-2 rounded-lg hover:bg-purple-300"
+                        ? "bg-purple-100 p-1 rounded-lg hover:bg-purple-300 text-base"
                         : "bg-white"
                     }`}
                     key={index}
@@ -96,12 +96,12 @@ export default function Popup({ trigger, settrigger, card }) {
                 );
               })}
             </div>
-            <div className="flex flex-col items-center justify-center gap-2 ">
-              <p className="text-3xl text-red-800">status</p>
+            <div className="flex flex-col items-center justify-center gap-1 ">
+              <p className="text-2xl text-red-800">status</p>
               {card.stats.map((status, index) => {
                 return (
                   <div
-                    className="flex w-96 items-center justify-between border-2 border-white hover:border-gray-200 "
+                    className="flex w-80 items-center justify-between border-2 border-white hover:border-gray-200 text-base"
                     key={index}
                   >
                     <p>{status.stat.name}</p>
@@ -169,9 +169,13 @@ export default function Popup({ trigger, settrigger, card }) {
               })}
             </div>
             <div className="flex items-center justify-center gap-5">
-              <p className="text-3xl text-red-800">ability</p>
+              <p className="text-2xl text-red-800">ability</p>
               {card.abilities.map((ability, index) => {
-                return <p key={index}>{ability.ability.name}</p>;
+                return (
+                  <p className="text-base" key={index}>
+                    {ability.ability.name}
+                  </p>
+                );
               })}
             </div>
           </div>

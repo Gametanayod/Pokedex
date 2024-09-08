@@ -32,7 +32,7 @@ export default function App() {
         })
       );
       setTimeout(() => {
-        setIsloading(false); // Stop loading after the delay
+        setIsloading(false);
         setPokemon(result.data);
         setEachPokemonData(eachPokemonData);
         checkPage(eachPokemonData);
@@ -54,8 +54,8 @@ export default function App() {
       {buttonPopup.show && (
         <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
       )}
-      <div className="w-full h-40 flex items-center justify-center gap-5 bg-red-600 drop-shadow-2xl rounded-b-full">
-        <img className="h-28" src={pokedexLogo} alt="Logo" />
+      <div className="w-full h-32 flex items-center justify-center gap-5 bg-red-600 drop-shadow-2xl rounded-b-full">
+        <img className="h-24" src={pokedexLogo} alt="Logo" />
         <Searchbar
           setEachPokemonData={setEachPokemonData}
           setIsloading={setIsloading}

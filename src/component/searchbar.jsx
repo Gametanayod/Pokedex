@@ -59,7 +59,7 @@ export default function Searchbar({
 
   return (
     <div className="flex items-center justify-around w-96 bg-white rounded-full focus-within:outline focus-within:outline-4 focus-within:outline-blue-600">
-      <img className="h-9" src={pokeball} alt="pokeballIcon" />
+      <img className="h-8" src={pokeball} alt="pokeballIcon" />
       <input
         onChange={(e) => getInputPokemon(e)}
         placeholder="Search Pokemon by name or ID"
@@ -69,7 +69,7 @@ export default function Searchbar({
       />
       <img
         onClick={getIndividualPokemonData}
-        className="h-10 cursor-pointer"
+        className="h-9 cursor-pointer"
         src={searchIcon}
         alt="searchPokemon"
       />

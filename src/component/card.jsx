@@ -20,12 +20,16 @@ export default function Card({
 }) {
   const getNextPokemonData = () => {
     setOffset(offset + 100);
-    setPageNumber(pageNumber + 1);
+    setTimeout(() => {
+      setPageNumber(pageNumber + 1);
+    }, 1000);
   };
 
   const getPrevPokemonData = () => {
     setOffset(offset - 100);
-    setPageNumber(pageNumber - 1);
+    setTimeout(() => {
+      setPageNumber(pageNumber - 1);
+    }, 1000);
   };
 
   const pokemonPopup = (pokemonId) => {
@@ -35,8 +39,8 @@ export default function Card({
   return (
     <div className="flex flex-col justify-center items-center">
       {eachPokemonData.length === 1 ? null : (
-        <div className="w-96 h-44 flex flex-col items-center justify-center  gap-5 ">
-          <div className="flex bg-slate-300 w-56 rounded-lg gap-5 text-4xl items-center justify-center drop-shadow-2xl">
+        <div className="w-72 h-36 flex flex-col items-center justify-center  gap-5 ">
+          <div className="flex bg-slate-300 w-56 rounded-lg gap-5 text-3xl items-center justify-center drop-shadow-2xl">
             <p>Page</p>
             <p>
               {pageNumber}/{Math.ceil(pokemon.count / 100)}
@@ -72,13 +76,13 @@ export default function Card({
             <div key={index}>
               <button
                 onClick={() => pokemonPopup(card.id)}
-                className="flex flex-col  text-2xl font-medium items-center justify-around  w-80 h-80 m-5 btn shadow-[0_9px_0_rgb(0,0,0)] hover:shadow-[0_4px_0px_rgb(0,0,0)] text-black bg-white ease-out hover:translate-y-1 transition-all rounded drop-shadow-2xl"
+                className="flex flex-col  text-2xl font-medium items-center justify-around  w-64 h-64 m-5 btn shadow-[0_9px_0_rgb(0,0,0)] hover:shadow-[0_4px_0px_rgb(0,0,0)] text-black bg-white ease-out hover:translate-y-1 transition-all rounded drop-shadow-2xl"
               >
                 <div className="flex w-60 justify-end ">
                   <p>#{formattedId}</p>
                 </div>
                 <img
-                  className="w-48 h-48"
+                  className="w-40 h-40"
                   src={
                     card.sprites.other["official-artwork"].front_default
                       ? card.sprites.other["official-artwork"].front_default

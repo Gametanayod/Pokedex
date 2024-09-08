@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="flex w-80 h-72 items-center justify-center bg-white rounded-3xl mt-40 ml-6">
+    <div className="flex w-64 h-64 items-center justify-center bg-white rounded-3xl mt-40 ml-6">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="192"
