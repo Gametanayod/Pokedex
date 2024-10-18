@@ -8,6 +8,10 @@ import miraidonAquatic from "../assets/1008Miraidon_Dream_6.png";
 import miraidonGlide from "../assets/1008Miraidon_Dream_3.png";
 
 export default function Popup({ trigger, settrigger, card }) {
+  const handleRedirect = (ability) => {
+    return window.open(`https://pokemondb.net/ability/${ability}`, "_blank");
+  };
+
   return trigger.show ? (
     <div
       onClick={() => settrigger({ show: false })}
@@ -172,9 +176,15 @@ export default function Popup({ trigger, settrigger, card }) {
               <p className="text-2xl text-red-800">ability</p>
               {card.abilities.map((ability, index) => {
                 return (
-                  <p className="text-base" key={index}>
+                  <button
+                    onClick={() => {
+                      handleRedirect(ability.ability.name);
+                    }}
+                    className="text-base hover:underline"
+                    key={index}
+                  >
                     {ability.ability.name}
-                  </p>
+                  </button>
                 );
               })}
             </div>
